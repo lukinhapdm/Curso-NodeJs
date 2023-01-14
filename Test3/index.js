@@ -2,11 +2,11 @@ const express = require("express");
 const app = express();
 
 app.get("/", function(req, res){
-	res.send("Welcome to my app!");
+	res.sendFile(__dirname + "/html/index.html");//__dirname retorna o diretório absoluto da aplicação
 });
 
 app.get("/about", function(req, res){
-	res.send("My About page");
+	res.sendFile(__dirname + "/html/about.html");
 });
 
 app.get("/blog", function(req, res){
