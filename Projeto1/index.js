@@ -2,7 +2,6 @@ const express = require("express");
 const app = express();
 const handlebars = require('express-handlebars');
 const bodyParser = require('body-parser')
-const Sequelize = require('sequelize');
 
 
 // Configuração
@@ -12,11 +11,7 @@ const Sequelize = require('sequelize');
 	// Body Parser
 	app.use(bodyParser.urlencoded({extended: false}))
 	app.use(bodyParser.json())
-	// Conexão com o Banco de Dados MySQL
-	const sequelize = new Sequelize('teste', 'root', 'node.js', {
-		host: "localhost",
-		dialect: "mysql"
-	})
+
 
 //Rotas
 app.get("/cadastro", function(req, res){
