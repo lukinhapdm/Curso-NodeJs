@@ -18,6 +18,9 @@ const sequelize = new Sequelize('teste', 'root', 'node.js', {
 app.get("/cadastro", function(req, res){
     res.render("formulario");
 });
+app.post("/adicionar", function(req, res){
+    res.send("Formulario Recebido!");
+});
 
 app.listen(8081, function(){ //precisar ser a ultima linha do codigo
 	console.log("The Server is runnig on the url http://localhost:8081");
