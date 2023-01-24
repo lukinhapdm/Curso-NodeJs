@@ -39,6 +39,16 @@ app.post("/adicionar", function(req, res){
     //res.send("Titulo: " + req.body.titulo + " Conteudo: " + req.body.conteudo);
 });
 
+app.get("/deletar/:id", function(req, res){
+    Post.destroy({
+		where: {'id': req.params.id}
+	}).then(function(){
+		res.send("Postagem deletada com sucesso!")
+	}).catch(function(erro){
+		res.send("Erro Detectado: " + erro)
+	})
+});
+
 app.listen(8081, function(){ //precisar ser a ultima linha do codigo
 	console.log("The Server is runnig on the url http://localhost:8081");
 });
