@@ -5,6 +5,7 @@
 	//const mongoose = require("mongoose")
 	
 	const app = express();
+	const admin = require("./routes/admin");
 
 //Configurações
 	//Body Parser
@@ -16,11 +17,15 @@
 	//Mongoose
 
 //Rotas
-
+	app.get('/', (req, res) => {
+		res.send("Rota principal")
+	})
+	
+	app.use('/admin', admin)
 
 //Outros
 const PORT = 8081
 
-app.listen(PORT, =>{ //Precisar ser a ultima linha do codigo
+app.listen(PORT, function(){ //Precisar ser a ultima linha do codigo
 	console.log("Servidor Rodando!");
 });
