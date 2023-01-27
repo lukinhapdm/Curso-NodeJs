@@ -17,7 +17,7 @@
 		app.set('view engine', 'handlebars')
 	//Mongoose
 		mongoose.Promise = global.Promise;
-		mongoose.connect("mongodb://localhost/blogapp", {
+		mongoose.connect("mongodb://127.0.0.1:27017/blogapp", {
 			useNewUrlParser:true,
 			useUnifiedTopology: true
 		})
