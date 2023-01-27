@@ -1,15 +1,23 @@
 <!DOCTYPE html>
 <html lang="pt-br">
     <head>
+	
 		<title>Blog</title>
+		
         <meta charset="utf-8">
 		<link rel="stylesheet" href="/css/bootstrap.css">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		
     </head>
     <body>
-		{{>_navbar}} //O sinal '>' refere a pasta partials
-		{{{body}}}
+	
+		{{>_navbar}} <!– O sinal 'maior' refere a pasta partials –>
+		
+		<div class="container my-4">
+			{{{body}}}
+		</div>
+		
     </body>
 	
 	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
