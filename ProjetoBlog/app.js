@@ -1,20 +1,24 @@
 //Carregando Modulos
 	const express = require("express");
-	const handlebars = require('express-handlebars');
+	const handlebars = require('express-handlebars')
 	const bodyParser = require('body-parser')
 	//const mongoose = require("mongoose")
+	const path = require("path") //Módulo padrão do Node.Js
 	
 	const app = express();
 	const admin = require("./routes/admin");
 
 //Configurações
 	//Body Parser
-	app.use(bodyParser.urlencoded({extended: true}))
-	app.use(bodyParser.json())
+		app.use(bodyParser.urlencoded({extended: true}))
+		app.use(bodyParser.json())
 	//Handlebars
-	app.engine('handlebars', handlebars.engine({defaultLayout: 'main'})) // main é o tamplate padrão do projeto
-	app.set('view engine', 'handlebars')
+		app.engine('handlebars', handlebars.engine({defaultLayout: 'main'})) // main é o tamplate padrão do projeto
+		app.set('view engine', 'handlebars')
 	//Mongoose
+	
+	//Public
+		app.use(express.static(path.join(__dirname, "public")))
 
 //Rotas
 	app.get('/', (req, res) => {
