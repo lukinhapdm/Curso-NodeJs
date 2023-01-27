@@ -2,7 +2,7 @@
 	const express = require("express");
 	const handlebars = require('express-handlebars')
 	const bodyParser = require('body-parser')
-	//const mongoose = require("mongoose")
+	const mongoose = require("mongoose")
 	const path = require("path") //Módulo padrão do Node.Js
 	
 	const app = express();
@@ -16,7 +16,13 @@
 		app.engine('handlebars', handlebars.engine({defaultLayout: 'main'})) // main é o tamplate padrão do projeto
 		app.set('view engine', 'handlebars')
 	//Mongoose
-	
+		mongoose.Promise = global.Promise;
+		mongoose.connect("mongodb://localhost/blogapp", {
+			useNewUrlParser:true,
+			useUnifiedTopology: true
+		})
+		.then(() => console.log('Conectado!'))
+		.catch((erro) => console.log('Erro ao se conectar: '+erro));
 	//Public
 		app.use(express.static(path.join(__dirname, "public")))
 
