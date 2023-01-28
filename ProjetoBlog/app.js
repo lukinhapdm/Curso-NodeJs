@@ -4,16 +4,31 @@
 	const bodyParser = require('body-parser')
 	const mongoose = require("mongoose")
 	const path = require("path") //Módulo padrão do Node.Js
+	const session = require("express-session")
+	const flash = require("connect-flash")
 	
 	const app = express();
 	const admin = require("./routes/admin");
 
 //Configurações
+	//Sessão
+		app.use(session({
+			secret: "2w17mljsedgf",
+			resave: true,
+			saveUninitialized: true
+		}))
+		app.use(flash()) // Deve ficar abaixo da sessão
+	//Middleware
+		app.use((req, res, next) => {
+			res.locals.success_msg = req.flash("success_msg") //O res.local é a forma de declarar uma variavel global
+			res.locals.error_msg = req.flash("error_msg")
+			next()
+		})
 	//Body Parser
 		app.use(bodyParser.urlencoded({extended: true}))
 		app.use(bodyParser.json())
 	//Handlebars
-		app.engine('handlebars', handlebars.engine({defaultLayout: 'main'})) // main é o tamplate padrão do projeto
+		app.engine('handlebars', handlebars.engine({defaultLayout: 'main'})) // O main é o tamplate padrão do projeto
 		app.set('view engine', 'handlebars')
 	//Mongoose
 		mongoose.Promise = global.Promise;
@@ -24,14 +39,7 @@
 		.then(() => console.log('Conectado!'))
 		.catch((erro) => console.log('Erro ao se conectar: '+erro));
 	//Public
-		app.use(express.static(path.join(__dirname, "public")))
-
-/*
-		app.use((req, res, next) => {
-			console.log("Middleware")
-			next()
-		})
-*/		
+		app.use(express.static(path.join(__dirname, "public")))		
 		
 //Rotas
 	app.get('/', (req, res) => {
