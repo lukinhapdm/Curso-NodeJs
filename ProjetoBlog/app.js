@@ -5,7 +5,7 @@
 	const mongoose = require("mongoose")
 	const path = require("path") //Módulo padrão do Node.Js
 	const session = require("express-session")
-	const flash = require("connect-flash")
+	const flash = require("connect-flash") //É umtipo de sessão que só aparece uma vez
 	
 	const app = express();
 	const admin = require("./routes/admin");
