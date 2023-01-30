@@ -3,3 +3,18 @@
 <a href="postagens/add">
 	<button class="btn btn-success">Nova Postagem</button>
 </a>
+
+{{#each postagens}}
+	<div class="card mt-4">
+		<div class="card-body">
+			<h4>{{titulo}}</h4>
+			<p>Descrição: {{descricao}}</p>
+			<small>Data de criação: {{date}}</small>
+			<br>
+			<small>Categoria: {{categoria.nome}}</small>
+			<small>Slug: {{slug}}</small>
+		</div>
+	</div>
+{{else}}
+	<h4 class="mt-4">Nenhuma postagem resgistrada!</h4>
+{{/each}}
