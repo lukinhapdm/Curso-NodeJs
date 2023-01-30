@@ -11,12 +11,23 @@
 			<small>Slug: {{slug}}</small>
 			<br>
 			<small>Data de criação: {{date}}</small>
-			<br>
-			<a href="/admin/categorias/edit/{{_id}}">
-				<button class="btn btn-success mt-4">Editar Categoria</button>
-			</a>
+			<div class="container text-center mt-2">
+				<div class="row justify-content-center">
+					<div class="col">
+						<a href="/admin/categorias/edit/{{_id}}">
+							<button class="btn btn-success">Editar Categoria</button>
+						</a>
+					</div>
+					<div class="col">
+						<form action="/admin/categorias/delete" method="POST">
+							<input type="hidden" name="id" value="{{_id}}">
+							<button type="submit" class="btn btn-danger">Deletar Categoria</button>
+						</form>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 {{else}}
-
+	<h4 class="mt-4">Nenhuma categoria resgistrada!</h4>
 {{/each}}
