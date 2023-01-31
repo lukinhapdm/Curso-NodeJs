@@ -13,6 +13,15 @@
 			<br>
 			<small>Categoria: {{categoria.nome}}</small>
 			<small>Slug: {{slug}}</small>
+			<div class="container text-center mt-2">
+				<div class="row justify-content-center">
+					<div class="col">
+						<a href="/admin/postagens/edit/{{_id}}">
+							<button class="btn btn-success">Editar Postagem</button>
+						</a>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 {{else}}
