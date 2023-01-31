@@ -45,16 +45,30 @@
 		
 //Rotas
 	app.get('/', (req, res) => {
-		Postagem.find().populate("categoria").sort({data:"desc"}).lean().then((postagens) => {
+		Postagem.find().populate("categoria").sort({date:"desc"}).lean().then((postagens) => {
 			res.render("index", {postagens: postagens})
 		}).catch((erro) => {
-			req.flash("error_msg", "Houve um erro!")
+			req.flash("error_msg", "Houve um erro interno!")
 			res.redirect("/404")
 		})
 	})
 	
 	app.get("/404", (req, res) => {
 		res.send("Erro 404!")
+	})
+	
+	app.get("/postagem/:slug", (req, res) => {
+		Postagem.findOne({slug: req.params.slug}).lean().then((postagem) => {
+			if(postagem) {
+				res.render("postagem/index", {postagem: postagem})
+			}else {
+				req.flash("error_msg", "Está postagem não existe!")
+				res.redirect("/")
+			}
+		}).catch((erro) => {
+			req.flash("error_msg", "Houve um erro interno!")
+			res.redirect("/")
+		})
 	})
 	
 	app.use('/admin', admin)
