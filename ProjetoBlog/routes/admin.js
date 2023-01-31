@@ -180,4 +180,14 @@ router.post("/postagens/edit", (req, res) => {
 	})
 })
 
+router.get("/postagens/delete/:id", (req, res) => { //Método menos seguro por usar o método get
+	Postagem.deleteOne({_id: req.params.id}).then(() => {
+		req.flash("success_msg", "Postagem deletada com sucesso!")
+		res.redirect("/admin/postagens")
+	}).catch((erro) => {
+		req.flash("error_msg", "Houve um erro ao deletar a postagem!")
+		res.redirect("/admin/postagens")
+	})
+})
+
 module.exports = router
