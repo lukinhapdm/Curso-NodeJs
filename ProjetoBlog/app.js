@@ -9,6 +9,8 @@
 	
 	const app = express();
 	const admin = require("./routes/admin");
+	require("./models/Postagem")
+	const Postagem = mongoose.model("postagens")
 
 //Configurações
 	//Sessão
@@ -43,7 +45,16 @@
 		
 //Rotas
 	app.get('/', (req, res) => {
-		res.send("Rota principal")
+		Postagem.find().populate("categoria").sort({data:"desc"}).lean().then((postagens) => {
+			res.render("index", {postagens: postagens})
+		}).catch((erro) => {
+			req.flash("error_msg", "Houve um erro!")
+			res.redirect("/404")
+		})
+	})
+	
+	app.get("/404", (req, res) => {
+		res.send("Erro 404!")
 	})
 	
 	app.use('/admin', admin)
