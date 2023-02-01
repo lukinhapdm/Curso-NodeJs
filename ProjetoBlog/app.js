@@ -11,6 +11,8 @@
 	const admin = require("./routes/admin");
 	require("./models/Postagem")
 	const Postagem = mongoose.model("postagens")
+	require("./models/Categoria")
+	const Categoria = mongoose.model("categorias")
 
 //Configurações
 	//Sessão
@@ -68,6 +70,35 @@
 		}).catch((erro) => {
 			req.flash("error_msg", "Houve um erro interno!")
 			res.redirect("/")
+		})
+	})
+	
+	app.get("/categorias", (req, res) => {
+		Categoria.find().lean().then((categorias) => {
+			res.render("categorias/index", {categorias: categorias})
+		}).catch((erro) => {
+			req.flash("error_msg", "Houve um erro ao listar as categorias!")
+			res.redirect("/")
+		})
+	})
+	
+	app.get("/categorias/:slug", (req, res) => {
+		Categoria.findOne({slug: req.params.slug}).lean().then((categoria) => {
+			if(categoria) {
+				Postagem.find({categoria: categoria._id}).lean().then((postagens) => {
+					res.render("categorias/postagens", {postagens: postagens, categoria: categoria})
+				}).catch((erro) => {
+					req.flash("error_msg", "Houve um erro ao listar as postagens!")
+					res.redirect("/categorias")
+				})
+			}
+			else {
+				req.flash("error_msg", "Está categoria não existe!")
+				res.redirect("/categorias")
+			}
+		}).catch((erro) => {
+			req.flash("error_msg", "Houve um erro ao carregar a página dessa categoria!")
+			res.redirect("/categorias")
 		})
 	})
 	
