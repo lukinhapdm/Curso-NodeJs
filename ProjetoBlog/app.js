@@ -9,6 +9,8 @@
 	
 	const app = express();
 	const admin = require("./routes/admin");
+	const usuarios = require("./routes/usuario");
+	
 	require("./models/Postagem")
 	const Postagem = mongoose.model("postagens")
 	require("./models/Categoria")
@@ -103,6 +105,7 @@
 	})
 	
 	app.use('/admin', admin)
+	app.use('/usuarios', usuarios)
 
 //Outros
 const PORT = 8081
