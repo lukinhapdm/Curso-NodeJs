@@ -6,6 +6,7 @@
 	const path = require("path") //Módulo padrão do Node.Js
 	const session = require("express-session")
 	const flash = require("connect-flash") //É umtipo de sessão que só aparece uma vez
+	const passport = require("passport")
 	
 	const app = express();
 	const admin = require("./routes/admin");
@@ -15,6 +16,7 @@
 	const Postagem = mongoose.model("postagens")
 	require("./models/Categoria")
 	const Categoria = mongoose.model("categorias")
+	require("./config/auth")(passport)
 
 //Configurações
 	//Sessão
@@ -23,6 +25,9 @@
 			resave: true,
 			saveUninitialized: true
 		}))
+		
+		app.use(passport.initialize())
+		app.use(passport.session())
 		app.use(flash()) // Deve ficar abaixo da sessão
 	//Middleware
 		app.use((req, res, next) => {
