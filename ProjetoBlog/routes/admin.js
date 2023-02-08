@@ -7,6 +7,8 @@ require("../models/Categoria")
 const Categoria = mongoose.model("categorias")
 require("../models/Postagem")
 const Postagem = mongoose.model("postagens")
+require("../models/Usuario")
+const Usuario = mongoose.model("usuarios")
 
 const {eAdmin} = require("../helpers/eAdmin")
 
@@ -189,6 +191,15 @@ router.get("/postagens/delete/:id", eAdmin, (req, res) => { //Método menos segu
 	}).catch((erro) => {
 		req.flash("error_msg", "Houve um erro ao deletar a postagem!")
 		res.redirect("/admin/postagens")
+	})
+})
+
+router.get('/usuarios', eAdmin, (req, res) => {
+	Usuario.find().lean().then((usuarios) => {
+		res.render("admin/usuarios", {usuarios: usuarios})
+	}).catch((erro) => {
+		req.flash("error_msg", "Houve um erro ao listar os usuários!")
+		res.redirect("/admin")
 	})
 })
 
