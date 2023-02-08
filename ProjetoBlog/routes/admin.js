@@ -203,4 +203,14 @@ router.get('/usuarios', eAdmin, (req, res) => {
 	})
 })
 
+router.post("/usuarios/delete", eAdmin, (req, res) => {
+	Usuario.deleteOne({_id: req.body.id}).then(() => {
+		req.flash("success_msg", "Usuário deletado com sucesso!")
+		res.redirect("/admin/usuarios")
+	}).catch((erro) => {
+		req.flash("error_msg", "Houve um erro ao deletar o usuário!")
+		res.redirect("/admin/usuarios")
+	})
+})
+
 module.exports = router
