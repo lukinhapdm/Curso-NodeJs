@@ -203,6 +203,32 @@ router.get('/usuarios', eAdmin, (req, res) => {
 	})
 })
 
+router.get("/usuarios/edit/:id", eAdmin, (req, res) => {
+	Usuario.findOne({_id: req.params.id}).lean().then((usuario) => {
+		res.render("admin/editusuarios", {usuario: usuario})
+	}).catch((erro) => {
+		req.flash("error_msg", "Este usuário não existe!")
+		res.redirect("/admin/usuarios")
+	})
+})
+
+router.post("/usuarios/edit", eAdmin, (req, res) => {
+	Usuario.findOne({_id: req.body.id}).then((usuario) => {
+		usuario.nome = req.body.nome
+		usuario.email = req.body.email
+		usuario.save().then(() => {
+			req.flash("success_msg", "Usuário editado com sucesso!")
+			res.redirect("/admin/usuarios")
+		}).catch((erro) => {
+			req.flash("error_msg", "Houve um erro interno ao salvar a edição do usuário!")
+			res.redirect("/admin/usuarios")
+		})
+	}).catch((erro) => {
+		req.flash("error_msg", "Houve um erro ao editar o usuário!")
+		res.redirect("/admin/usuarios")
+	})
+})
+
 router.post("/usuarios/delete", eAdmin, (req, res) => {
 	Usuario.deleteOne({_id: req.body.id}).then(() => {
 		req.flash("success_msg", "Usuário deletado com sucesso!")
